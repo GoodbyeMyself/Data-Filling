@@ -14,8 +14,10 @@ const routes: Array<RouteRecordRaw> = [
              * @date: 2025-12-15 11:20:54
             */
             query: {
-                from: "home",
-                ts: "1765768717757"
+                from: "Govern",
+                token: '1234567890',
+                userId: '1',
+                fillId: 'abcdefg'
             }
         }),
         children: [

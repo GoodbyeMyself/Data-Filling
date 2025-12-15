@@ -15,8 +15,10 @@ const simulateLinkVisit = () => {
     router.replace({
         name: "Test",
         query: {
-            from: "link",
-            ts: Date.now().toString(),
+            from: "Govern",
+            token: '1234567890',
+            userId: '1',
+            fillId: 'abcdefg'
         },
     });
 };
