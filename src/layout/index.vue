@@ -3,10 +3,18 @@ import tabbar from "@/components/tabbar/index.vue";
 import NavBar from "@/components/nav-bar/index.vue";
 import { useCachedViewStoreHook } from "@/store/modules/cached-view";
 import { useDarkMode } from "@/composables/useToggleDarkMode";
+import { useRoute } from "vue-router";
 import { computed } from "vue";
+
+const route = useRoute();
 
 const cachedViews = computed(() => {
   return useCachedViewStoreHook().cachedViewList;
+});
+
+// 根据路由 meta 判断是否隐藏 tabbar
+const hideTabbar = computed(() => {
+  return route.meta?.hideTabbar === true;
 });
 </script>
 
@@ -19,7 +27,7 @@ const cachedViews = computed(() => {
           <component :is="Component" />
         </keep-alive>
       </router-view>
-      <tabbar />
+      <tabbar v-if="!hideTabbar" />
     </van-config-provider>
   </div>
 </template>

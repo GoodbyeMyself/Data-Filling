@@ -35,7 +35,8 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import("@/views/filling/index.vue"),
                 meta: {
                     title: "数据填报",
-                    hideThemeToggle: true
+                    hideThemeToggle: true,
+                    hideTabbar: true
                 }
             },
             {
@@ -52,6 +53,16 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import("@/views/demo/index.vue"),
                 meta: {
                     title: "技术栈"
+                }
+            },
+            {
+                path: "403",
+                name: "Forbidden",
+                component: () => import("@/views/403/index.vue"),
+                meta: {
+                    title: "访问受限",
+                    hideThemeToggle: true,
+                    hideTabbar: true
                 }
             },
         ]

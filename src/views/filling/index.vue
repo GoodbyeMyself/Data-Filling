@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { showNotify } from "vant";
 import "vant/es/notify/style";
 
@@ -9,12 +9,35 @@ defineOptions({
 });
 
 const route = useRoute();
+const router = useRouter();
 
-// 进入页面及路由参数变化时输出
+// 进入页面及路由参数变化时输出并验证 token（仅在当前页面时触发）
 watch(
     () => route.query,
     (val) => {
+        // 只在当前路由是 Filling 页面时才执行验证
+        if (route.name !== "Filling") {
+            return;
+        }
+
         console.log("填报页面路由参数:", val);
+        
+        // 验证 token 是否存在
+        const token = val.token as string | undefined;
+        if (!token || token.trim() === "") {
+            console.warn("Token 不存在或为空，跳转到 403 页面");
+            showNotify({ 
+                type: "danger", 
+                message: "缺少访问凭证，无权访问",
+                duration: 2000
+            });
+            // 延迟跳转，让用户看到提示信息
+            setTimeout(() => {
+                router.replace({ name: "Forbidden" });
+            }, 500);
+        } else {
+            console.log("Token 验证通过:", token);
+        }
     },
     { deep: true, immediate: true },
 );
